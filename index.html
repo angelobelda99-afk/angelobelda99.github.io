@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Purple Birthday Card</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #d8b4fe, #f5d0fe);
+        font-family: Algerian;
+        overflow: hidden;
+    }
+
+    /* Envelope */
+    .envelope {
+        position: relative;
+        width: 320px;
+        height: 220px;
+        background: #a855f7;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transition: transform 0.3s;
+    }
+
+    .envelope:hover {
+        transform: scale(1.03);
+    }
+
+    /* Envelope flap */
+    .flap {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background: #9333ea;
+        clip-path: polygon(0 0, 50% 55%, 100% 0);
+        transform-origin: top;
+        transition: transform 0.8s ease;
+        z-index: 3;
+    }
+
+    .envelope.open .flap {
+        transform: rotateX(180deg);
+    }
+
+    /* Card */
+    .card {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        width: 260px;
+        height: 170px;
+        background: #faf5ff;
+        border-radius: 10px;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        opacity: 0;
+        transition: all 0.8s ease;
+        z-index: 2;
+    }
+
+    .envelope.open .card {
+        transform: translateX(-50%) translateY(-10px);
+        opacity: 1;
+    }
+
+    .card h2 {
+        color: #7e22ce;
+        margin: 10px 0;
+    }
+
+    .card p {
+        color: #6b21a8;
+        font-size: 14px;
+    }
+
+    .heart {
+        font-size: 24px;
+        animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.3); }
+    }
+
+    /* Floating hearts */
+    .float {
+        position: absolute;
+        bottom: -20px;
+        font-size: 18px;
+        animation: floatUp 4s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-120vh);
+            opacity: 0;
+        }
+    }
+
+    .hint {
+        position: absolute;
+        bottom: 30px;
+        color: #6b21a8;
+        font-size: 14px;
+        animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+        50% { opacity: 0.5; }
+    }
+</style>
+</head>
+<body>
+
+<div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="card">
+        <div class="heart">💜</div>
+        <h2>Happy Birthday, Yabuu!</h2>
+        <p>
+           May this year bring you all the love and happines
+you deserve. I hope you always find a reason to keep going and courage to pursue all your dreams.
+            To the best of everything yabubels ko.✨   
+        </p>
+        <p>🎂💜🎉</p>
+    </div>
+</div>
+
+<div class="hint">Click the envelope 💌</div>
+
+<script>
+    function openEnvelope() {
+        document.querySelector('.envelope').classList.toggle('open');
+        createHearts();
+    }
+
+    function createHearts() {
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('float');
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    }
+</script>
+
+</body>
+</html>
